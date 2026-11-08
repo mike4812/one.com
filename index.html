@@ -6,8 +6,7 @@
 <title>ONE – כל ההזמנות. מסך אחד.</title>
 <meta name="description" content="ONE מחברת את כל אפליקציות המשלוחים למסך אחד לשליח: התראות, בחירת הזמנות, הכנסות, הוצאות ודוח לרואה חשבון.">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;900&display=swap">
-<script>(function(){var d=document.documentElement;try{var c=JSON.parse(localStorage.one_consent||'null'),pf=c&&c.pref;if(pf&&JSON.parse(localStorage.one_lang||'null')==='en'){d.lang='en';d.dir='ltr'}
-var na=pf&&(JSON.parse(localStorage.one_a11y||'{}')||{}).na;if(!sessionStorage.one_intro&&!matchMedia('(prefers-reduced-motion:reduce)').matches&&!na)d.classList.add('intro-on')}catch(e){}})()</script>
+<script>(function(){var d=document.documentElement,na=0;try{var c=JSON.parse(localStorage.one_consent||'null');if(c&&c.pref){if(JSON.parse(localStorage.one_lang||'null')==='en'){d.lang='en';d.dir='ltr'}na=(JSON.parse(localStorage.one_a11y||'{}')||{}).na}}catch(e){}if(!na)d.classList.add('intro-on')})()</script>
 <style>
 :root{--bg:#070a14;--line:#ffffff1f;--ink:#f6f3ea;--mut:#9aa5bd;--gold:#ffc233;--gold2:#ff8a1f;color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 *{box-sizing:border-box}
@@ -185,6 +184,7 @@ body.li .mbar{display:none!important}body.li{padding-bottom:0!important}
 .ap{position:fixed;inset-inline-start:14px;bottom:76px;z-index:55;width:min(320px,calc(100vw - 28px));max-height:70dvh;overflow:auto;background:#0b1020;border:1px solid var(--line);border-radius:22px;padding:18px}
 .ap h3{margin:0 0 12px}.ag{display:grid;grid-template-columns:1fr 1fr;gap:8px}.ag .btn{padding:10px 8px;font-size:14px;border-radius:14px}.ag [aria-pressed=true]{background:var(--gold);color:#111}.ap .lk{display:block;margin-top:12px;font-size:14px}
 @media(max-width:820px){.fab{bottom:88px}.ap{bottom:150px}#lgn{display:none}}
+#lb{gap:6px;padding:10px 14px!important}#lb svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;flex:none}#lb span{font-size:14px;letter-spacing:.5px}
 .fl{display:flex;gap:16px;flex-wrap:wrap}
 #account h2{margin-bottom:6px}#account .card:hover{transform:none}.ap2{display:flex;gap:14px;flex-wrap:wrap;margin:0 0 12px}.ap2 label{display:flex;gap:8px;align-items:center}.ap2 input{width:20px;height:20px;accent-color:#ffc233}
 .pm{color:#37d67a;margin:8px 0 0;min-height:1.4em}.btn.sm{padding:10px 18px;font-size:14px;margin:4px 6px 0 0}
@@ -201,6 +201,7 @@ body.li .mbar{display:none!important}body.li{padding-bottom:0!important}
 #intro .dot{opacity:0;transform-origin:204px 120px;animation:pop .6s 1.35s forwards}@keyframes pop{from{opacity:0;transform:scale(0)}to{opacity:1;transform:scale(1)}}
 #intro .wdm{width:140px;height:54px;opacity:0;animation:iu .8s 1.5s forwards}#intro h2{margin:6px 0 0;font-size:clamp(24px,5vw,38px);line-height:1.3;opacity:0;animation:iu .8s 2.1s forwards}
 @keyframes iu{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){#intro .dot,#intro .wdm,#intro h2{opacity:1}#intro .s{stroke-dashoffset:0}}
 #intro .btn{position:absolute;bottom:calc(24px + env(safe-area-inset-bottom,0px));padding:8px 20px;font-size:14px}
 </style>
 </head>
@@ -223,7 +224,7 @@ body.li .mbar{display:none!important}body.li{padding-bottom:0!important}
 <header class="nav"><div class="wrap">
   <a class="brand" href="#top" aria-label="ONE"><svg class="mk"><use href="#mk"/></svg><svg class="wd"><use href="#wd"/></svg></a>
   <nav><a href="#features">היתרונות</a><a href="#video">סרטון</a><a href="#demo">הדגמה</a><a href="#how">איך זה עובד</a><a href="#rest">למסעדות</a><a href="#faq">שאלות</a></nav>
-  <button class="btn g" id="lb" type="button">EN</button><button class="btn g" id="lgn" type="button" data-i="login"></button><button class="btn p" id="nb" type="button" data-i="signup"></button>
+  <button class="btn g" id="lb" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.2 3 14.8 0 18M12 3c-3 3.2-3 14.8 0 18"/></svg><span id="lbt">EN</span></button><button class="btn g" id="lgn" type="button" data-i="login"></button><button class="btn p" id="nb" type="button" data-i="signup"></button>
 </div></header>
 
 <main id="top" tabindex="-1">
@@ -234,7 +235,7 @@ body.li .mbar{display:none!important}body.li{padding-bottom:0!important}
       <label class="f"><span data-i="name"></span><input name="fn" autocomplete="name"></label>
       <label class="f"><span data-i="phone"></span><input name="ph" type="tel" autocomplete="tel"></label>
       <p class="mut" style="text-align:start" id="em"></p>
-      <div data-for="courier"><p data-i="apps_t" style="color:var(--mut);margin:0 0 8px"></p><div class="ap2"><label><input type="checkbox" name="app" value="wolt"><span data-i="w1"></span></label><label><input type="checkbox" name="app" value="10bis"><span data-i="w2"></span></label><label><input type="checkbox" name="app" value="mishloha"><span data-i="w3"></span></label><label><input type="checkbox" name="app" value="haat"><span data-i="w4"></span></label></div></div>
+      <div data-for="courier"><p data-i="apps_t" style="color:var(--mut);margin:0 0 8px"></p><div class="ap2"><label><input type="checkbox" name="app" value="wolt"><span data-i="w1"></span></label><label><input type="checkbox" name="app" value="10bis"><span data-i="w2"></span></label><label><input type="checkbox" name="app" value="mishloha"><span data-i="w3"></span></label><label><input type="checkbox" name="app" value="haat"><span data-i="w4"></span></label><label><input type="checkbox" name="app" value="other"><span data-i="w5"></span></label></div></div>
       <div data-for="restaurant"><label class="f"><span data-i="rname"></span><input name="rest"></label><label class="f"><span data-i="rcity"></span><input name="city"></label></div>
       <button class="btn p" type="submit" data-i="save"></button><p class="pm" id="pm" role="status" data-i=""></p></form></div>
     <div class="card"><h3 data-i="stat"></h3><p style="color:var(--mut)" data-i="stat2"></p><div class="stores"></div>
@@ -245,10 +246,10 @@ body.li .mbar{display:none!important}body.li{padding-bottom:0!important}
   <div>
     <span class="badge"><i></i>בקרוב · רשימת ההמתנה פתוחה</span>
     <h1>כל ההזמנות.<br><span class="gt">מסך אחד.</span></h1>
-    <p class="lead">ONE מחברת את וולט, תן ביס, משלוחה והאט למסך אחד. מקבלים התראות מכולן, בוחרים מה לקחת, והכנסות, הוצאות ודוחות מסודרים לבד. בלי לפתוח אפליקציה אחרי אפליקציה תוך כדי נסיעה.</p>
+    <p class="lead">ONE מחברת את כל אפליקציות המשלוחים לאפליקציה אחת. מקבלים התראות מכולן, בוחרים מה לקחת, והכנסות, הוצאות ודוחות מסודרים לבד. בלי לפתוח אפליקציה אחרי אפליקציה תוך כדי נסיעה.</p>
     <div class="cta"><a class="btn p" href="#join" data-role="courier">אני שליח</a><a class="btn g" href="#join" data-role="restaurant">אני מסעדה</a><a class="btn g" href="#video">▶ צפו בסרטון</a></div>
     <div class="stores"></div>
-    <div class="apps"><span class="lg w"></span><span class="lg t"></span><span class="lg m"></span><span class="lg h"></span><span>ועוד בדרך</span></div>
+    <div class="apps"><span class="lg w"></span><span class="lg t"></span><span class="lg m"></span><span class="lg h"></span><span>וכל השאר</span></div>
   </div>
   <div class="phone" aria-hidden="true">
     <div class="ph-h"><b class="gt">ONE</b><small>● אונליין</small></div>
@@ -282,9 +283,9 @@ body.li .mbar{display:none!important}body.li{padding-bottom:0!important}
     <div class="card rv"><div class="ico"><svg><use href="#i6"/></svg></div><h3>חשבונאות ביד</h3><p>בסוף החודש צריך לאסוף נתונים והוצאות עבור רואה החשבון.</p></div>
   </div>
   <div class="mviz rv">
-    <div><div class="mlg"><span class="lg w"></span><span class="lg t"></span><span class="lg m"></span><span class="lg h"></span></div><small>היום: ארבע אפליקציות</small></div>
+    <div><div class="mlg"><span class="lg w"></span><span class="lg t"></span><span class="lg m"></span><span class="lg h"></span></div><small>היום: אפליקציה אחרי אפליקציה</small></div>
     <svg class="mv-a" viewBox="0 0 200 40"><path pathLength="1" d="M190 20H14M36 7L14 20l22 13"/></svg>
-    <div><svg class="mk"><use href="#mk"/></svg><small>עם ONE: מסך אחד</small></div>
+    <div><svg class="mk"><use href="#mk"/></svg><small>עם ONE: אפליקציה אחת</small></div>
   </div>
 </div></section>
 
@@ -361,7 +362,7 @@ body.li .mbar{display:none!important}body.li{padding-bottom:0!important}
 <section id="faq"><div class="wrap" style="max-width:760px">
   <h2 class="rv">שאלות נפוצות</h2><p class="sub rv">הכול על ONE בקצרה.</p>
   <details class="rv"><summary>מתי ONE זמינה?</summary><p>אנחנו בשלבי השקה. מי שנרשם לרשימת ההמתנה יקבל הודעה ראשון.</p></details>
-  <details class="rv"><summary>באילו אפליקציות אפשר להשתמש?</summary><p>המטרה היא לחבר את וולט, תן ביס, משלוחה והאט, ובהמשך עוד אפליקציות.</p></details>
+  <details class="rv"><summary>באילו אפליקציות אפשר להשתמש?</summary><p>ONE מחברת את כל אפליקציות המשלוחים, ביניהן וולט, תן ביס, משלוחה והאט.</p></details>
   <details class="rv"><summary>איך מסעדה מצטרפת?</summary><p>משאירים פרטים בטופס למטה ובוחרים “מסעדה”. נחזור אליכם עם כל הפרטים.</p></details>
 </div></section>
 
@@ -433,14 +434,14 @@ const li=()=>lang==='he'?0:1;
 
 const H2E={"היתרונות":"Features","סרטון":"Video","הדגמה":"Demo","איך זה עובד":"How it works","למסעדות":"For restaurants","שאלות":"FAQ",
 "בקרוב · רשימת ההמתנה פתוחה":"Coming soon · Waitlist is open","כל ההזמנות.":"Every order.","מסך אחד.":"One screen.",
-"ONE מחברת את וולט, תן ביס, משלוחה והאט למסך אחד. מקבלים התראות מכולן, בוחרים מה לקחת, והכנסות, הוצאות ודוחות מסודרים לבד. בלי לפתוח אפליקציה אחרי אפליקציה תוך כדי נסיעה.":"ONE brings Wolt, 10bis, Mishloha and Haat onto one screen. Get alerts from all of them, pick what to take, and income, expenses and reports organize themselves. No opening one app after another while riding.",
-"אני שליח":"I'm a courier","אני מסעדה":"I'm a restaurant","▶ צפו בסרטון":"▶ Watch the video","ועוד בדרך":"and more on the way","● אונליין":"● Online",
+"ONE מחברת את כל אפליקציות המשלוחים לאפליקציה אחת. מקבלים התראות מכולן, בוחרים מה לקחת, והכנסות, הוצאות ודוחות מסודרים לבד. בלי לפתוח אפליקציה אחרי אפליקציה תוך כדי נסיעה.":"ONE brings all delivery apps into a single app. Get alerts from all of them, pick what to take, and income, expenses and reports organize themselves. No opening one app after another while riding.",
+"אני שליח":"I'm a courier","אני מסעדה":"I'm a restaurant","▶ צפו בסרטון":"▶ Watch the video","וכל השאר":"and all the rest","● אונליין":"● Online",
 "וולט · 2.1 ק״מ":"Wolt · 2.1 km","תן ביס · 1.4 ק״מ":"10bis · 1.4 km","משלוחה · 3.0 ק״מ":"Mishloha · 3.0 km","האט · 1.1 ק״מ":"Haat · 1.1 km","פיצה דוד":"Pizza David","ישיר מהמסעדה":"Direct from the restaurant",
 "פחות אפליקציות.":"Fewer apps.","יותר כסף.":"More money.","לעבור בין אפליקציות בזמן נסיעה זה מסוכן ומבזבז זמן. ב-ONE הכול במקום אחד, ואתה מתרכז בכביש.":"Switching between apps while riding is dangerous and wastes time. With ONE everything is in one place, and you focus on the road.",
 "ראו את":"See","ONE בפעולה":"ONE in action","פחות מדקה וחצי שמסבירה איך כל ההזמנות מגיעות למסך אחד.":"Under a minute and a half on how all orders reach one screen.","הצטרפו לרשימת ההמתנה":"Join the waitlist",
 "למה צריך":"Why you need","את ONE":"ONE","שלוש בעיות שכל שליח מכיר.":"Three problems every courier knows.","מעבר בין אפליקציות":"Switching between apps","לפתוח אפליקציה אחרי אפליקציה בזמן נסיעה זה מסוכן ומבזבז זמן.":"Opening one app after another while riding is dangerous and wastes time.",
 "הכנסות מפוזרות":"Scattered income","כל אפליקציה מראה רק חלק מהתמונה, וקשה לדעת כמה באמת הרווחת.":"Each app shows only part of the picture, so it's hard to know what you really earned.","חשבונאות ביד":"Manual bookkeeping","בסוף החודש צריך לאסוף נתונים והוצאות עבור רואה החשבון.":"At month end you have to collect data and expenses for your accountant.",
-"היום: ארבע אפליקציות":"Today: four apps","עם ONE: מסך אחד":"With ONE: one screen","בנוי לשליחים.":"Built for couriers.","פתוח למסעדות.":"Open to restaurants.","לשליחים":"For couriers","כל ההזמנות. מסך אחד.":"Every order. One screen.",
+"היום: אפליקציה אחרי אפליקציה":"Today: app after app","עם ONE: אפליקציה אחת":"With ONE: one app","בנוי לשליחים.":"Built for couriers.","פתוח למסעדות.":"Open to restaurants.","לשליחים":"For couriers","כל ההזמנות. מסך אחד.":"Every order. One screen.",
 "הזמנות מכל האפליקציות, הכנסות, הוצאות ודוחות במקום אחד.":"Orders from all apps, income, expenses and reports in one place.","פרסמו משלוחים ישירות":"Post deliveries directly","הצעות המשלוח שלכם מופיעות לשליחים לצד ההזמנות מהאפליקציות הגדולות.":"Your delivery offers appear to couriers next to orders from the big apps.",
 "כל מה שהשליח צריך,":"Everything a courier needs,","במקום אחד":"in one place","פשוט, ברור וגדול. בנוי לשימוש מהיר עם יד אחת.":"Simple, clear and big. Built for fast one-handed use.",
 "מסך אחד לכל ההתראות":"One screen for all alerts","הזמנות מכל האפליקציות מגיעות לזרם אחד, בלי לעבור בין אפליקציות.":"Orders from all apps arrive in a single stream, with no app switching.","בוחרים ומשלבים":"Pick and combine","רואים הכול יחד ובוחרים אילו משלוחים לקחת ואיך לשלב ביניהם.":"See everything together and choose which deliveries to take and how to combine them.",
@@ -454,7 +455,7 @@ const H2E={"היתרונות":"Features","סרטון":"Video","הדגמה":"Demo
 "מסעדה?":"Restaurant?","פרסמו משלוחים ישירות לשליחים":"Post deliveries directly to couriers","ההצעות שלכם מופיעות לצד הזמנות מהאפליקציות הגדולות":"Your offers appear next to orders from the big apps","מגדירים מחיר ומרחק, ושליחים באזור רואים מיד":"Set price and distance, and nearby couriers see it instantly",
 "מתחילים בלי לבנות אפליקציה משלכם":"Start without building your own app","חבר את המסעדה שלי":"Connect my restaurant","הצעות ממסעדות":"Restaurant offers","● חי":"● Live","פיצה דוד · 0.8 ק״מ":"Pizza David · 0.8 km","ישיר":"Direct",
 "שווארמה הכיכר · 1.5 ק״מ":"Shawarma HaKikar · 1.5 km","סושי ים · 2.2 ק״מ":"Sushi Yam · 2.2 km","שאלות נפוצות":"FAQ","הכול על ONE בקצרה.":"Everything about ONE in brief.","מתי ONE זמינה?":"When will ONE be available?",
-"אנחנו בשלבי השקה. מי שנרשם לרשימת ההמתנה יקבל הודעה ראשון.":"We're in the launch stage. Those who sign up are notified first.","באילו אפליקציות אפשר להשתמש?":"Which apps can I use?","המטרה היא לחבר את וולט, תן ביס, משלוחה והאט, ובהמשך עוד אפליקציות.":"The goal is to connect Wolt, 10bis, Mishloha and Haat, and more apps later.",
+"אנחנו בשלבי השקה. מי שנרשם לרשימת ההמתנה יקבל הודעה ראשון.":"We're in the launch stage. Those who sign up are notified first.","באילו אפליקציות אפשר להשתמש?":"Which apps can I use?","ONE מחברת את כל אפליקציות המשלוחים, ביניהן וולט, תן ביס, משלוחה והאט.":"ONE connects all delivery apps, including Wolt, 10bis, Mishloha and Haat.",
 "איך מסעדה מצטרפת?":"How does a restaurant join?","משאירים פרטים בטופס למטה ובוחרים “מסעדה”. נחזור אליכם עם כל הפרטים.":"Sign up below and choose “Restaurant”. We'll get back to you with all the details."};
 
 const K={'':['',''],skip:['דלג לתוכן','Skip to content'],skipi:['דלג · Skip','Skip'],signup:['הרשמה','Sign up'],login:['התחברות','Log in'],mypage:['העמוד שלי','My page'],close:['סגור','Close'],play:['הפעל סרטון','Play video'],
@@ -464,7 +465,7 @@ er_req:['מלאו את כל השדות','Please fill in all fields'],er_mail:['�
 j1:['הצטרפו ל-','Join '],j3:['צרו חשבון אישי, ונעדכן אתכם כשנפתח.','Create your personal account and we will update you when we launch.'],have:['כבר יש לי חשבון','I already have an account'],
 hi:['שלום, ','Hello, '],as:['האפליקציה בפיתוח. כשתעלה, החשבון הזה יחכה לכם.','The app is in development. When it launches, this account will be waiting for you.'],prof:['פרטים אישיים','Personal details'],apps_t:['באילו אפליקציות אתם עובדים?','Which apps do you work with?'],rcity:['כתובת / עיר','Address / city'],
 save:['שמירה','Save'],saved:['נשמר ✓','Saved ✓'],stat:['סטטוס','Status'],stat2:['החשבון פעיל · ממתין להשקה','Account active · waiting for launch'],soon:['בקרוב','Coming soon'],logout:['התנתקות','Log out'],del:['מחיקת החשבון','Delete my account'],delc:['למחוק את החשבון לצמיתות?','Delete your account permanently?'],exp:['הורדת הנתונים שלי','Download my data'],
-w1:['וולט','Wolt'],w2:['תן ביס','10bis'],w3:['משלוחה','Mishloha'],w4:['האט','Haat'],
+w1:['וולט','Wolt'],w2:['תן ביס','10bis'],w3:['משלוחה','Mishloha'],w4:['האט','Haat'],w5:['אחרות','Other'],
 ck:['האתר משתמש רק באחסון הכרחי (התחברות ואבטחה). באישורך נשמור גם העדפות: שפה והגדרות נגישות. אין עוגיות פרסום או מעקב.','This site uses only essential storage (login and security). With your OK we also save preferences: language and accessibility settings. No advertising or tracking cookies.'],ck_all:['אישור הכול','Accept all'],ck_nec:['הכרחיות בלבד','Essential only'],ck_set:['הגדרות עוגיות','Cookie settings'],
 f1:['הכול במסך אחד · © 2026 ONE','Everything on one screen · © 2026 ONE'],f2:['שמות ולוגואים של צדדים שלישיים שייכים לבעליהם.','Third-party names and logos belong to their owners.'],acc:['הצהרת נגישות','Accessibility statement'],
 a_t:['נגישות','Accessibility'],a_z1:['הגדל טקסט','Larger text'],a_z0:['הקטן טקסט','Smaller text'],a_hc:['ניגודיות גבוהה','High contrast'],a_gr:['גווני אפור','Grayscale'],a_ul:['הדגשת קישורים','Underline links'],a_rf:['גופן קריא','Readable font'],a_ls:['ריווח שורות','Line spacing'],a_na:['עצירת אנימציות','Stop animations'],a_rs:['איפוס','Reset'],
@@ -479,7 +480,7 @@ function tr(){const i=li(),h=document.documentElement;h.lang=lang;h.dir=i?'ltr':
  $$('[data-i]').forEach(e=>e.textContent=K[e.dataset.i][i]);$$('[data-al]').forEach(e=>e.setAttribute('aria-label',K[e.dataset.al][i]));
  tn.forEach(([n,o,en])=>n.nodeValue=i?o.replace(/\S[\s\S]*\S|\S/,en):o);
  document.title=i?'ONE – Every order. One screen.':T0;$('meta[name=description]').content=i?'ONE connects all delivery apps into one screen for couriers: alerts, order picking, income, expenses and an accountant report.':D0;
- $('#lb').textContent=i?'עב':'EN';$('#lb').setAttribute('aria-label',i?'עברית':'English');if(U)renderAcc();if(C&&C.pref)S.set('one_lang',lang)}
+ $('#lbt').textContent=i?'HE':'EN';$('#lb').setAttribute('aria-label',i?'עברית':'English');if(U)renderAcc();if(C&&C.pref)S.set('one_lang',lang)}
 $('#lb').onclick=()=>{lang=lang==='he'?'en':'he';tr()};
 
 /* --- stores --- */
@@ -562,7 +563,7 @@ ap();
 
 /* --- intro --- */
 function endIntro(){const el=$('#intro');if(el.classList.contains('out'))return;el.classList.add('out');setTimeout(()=>document.documentElement.classList.remove('intro-on'),750)}
-if(document.documentElement.classList.contains('intro-on')){try{sessionStorage.one_intro=1}catch(e){}setTimeout(endIntro,3800);$('#isk').onclick=endIntro;$('#intro').onclick=endIntro}
+if(document.documentElement.classList.contains('intro-on')){setTimeout(endIntro,matchMedia('(prefers-reduced-motion:reduce)').matches?1800:3800);$('#isk').onclick=endIntro;$('#intro').onclick=endIntro}
 
 /* --- init --- */
 tr();Auth.me().then(u=>{U=u;nav();route()});
